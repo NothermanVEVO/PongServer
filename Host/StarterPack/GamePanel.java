@@ -41,6 +41,8 @@ public class GamePanel extends JPanel implements Runnable{
         long currentTime;
         long timer = 0;
         int drawCount = 0;
+
+        int frames = 0;
         
         while (true) {
             currentTime = System.nanoTime();
@@ -59,10 +61,13 @@ public class GamePanel extends JPanel implements Runnable{
 
             }
 
+            frames++;
+
             if(timer >= 1000000000){
-                System.out.println("FPS: " + drawCount);
+                System.out.println("TICK: " + drawCount + " FPS: " + frames);
                 drawCount = 0;
                 timer = 0;
+                frames = 0;
             }
         }
     }
