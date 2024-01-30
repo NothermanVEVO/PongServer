@@ -20,6 +20,8 @@ public class GamePanel extends JPanel implements Runnable{
 
     Key key = new Key();
 
+    int frames;
+
     GamePanel(){
         this.setBounds(0, 0, 640, 480);
         this.setBackground(Color.BLACK);
@@ -61,6 +63,7 @@ public class GamePanel extends JPanel implements Runnable{
 
             if(timer >= 1000000000){
                 // System.out.println("TICK: " + drawCount);
+                frames = drawCount;
                 drawCount = 0;
                 timer = 0;
             }
@@ -68,7 +71,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void update(){
-        player.update(key);
+        player.update(key, frames);
         ball.update(player);
     }
 

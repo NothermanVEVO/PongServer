@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Date;
 
 import Host.Ball.Ball;
 import Host.Player.Player;
@@ -21,6 +22,10 @@ public class Server implements Runnable {
 
     Ball ball;
     Player player;
+
+    Date date = new Date();
+
+    public static long latency;
 
     public Server(int port){
         this.port = port;
@@ -103,8 +108,7 @@ public class Server implements Runnable {
             //Sending velocity of THIS ball
             output.writeObject(Ball.speedX);
             output.writeObject(Ball.speedY);
-            output.writeObject(Player.upOtherPlayerPressed);
-            output.writeObject(Player.downOtherPlayerPressed);
+            output.writeObject(new Date().getTime());
             output.flush();
         } catch (IOException e) {
         }
@@ -112,11 +116,15 @@ public class Server implements Runnable {
 
     public void receiveData(){
         try {
+            date = new Date();
             Player.otherPlayer.x = (int) input.readObject();
             Player.otherPlayer.y = (int) input.readObject();
             Ball.intersectOtherPlayer = (boolean) input.readObject();
-            Player.upOtherPlayerPressed = (boolean) input.readObject();
-            Player.downOtherPlayerPressed = (boolean) input.readObject();
+            long msReceive = (long) input.readObject();
+            long msNow = date.getTime();
+
+            latency = msNow - msReceive;
+            // System.out.println(latency);
         } catch (ClassNotFoundException | IOException e) {
         }
     }

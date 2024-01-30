@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Date;
 
 import Client.Ball.Ball;
 import Client.Player.Player;
@@ -20,6 +21,10 @@ public class Hosted implements Runnable {
 
     Player player;
     Ball ball;
+
+    Date date = new Date();
+
+    public static long latency;
 
     public Hosted(String IP, int port){
         this.IP = IP;
@@ -89,8 +94,7 @@ public class Hosted implements Runnable {
             output.writeObject(Player.player.x);
             output.writeObject(Player.player.y);
             output.writeObject(Ball.ballIntersectPlayer(Player.player));
-            output.writeObject(Player.upOtherPlayerPressed);
-            output.writeObject(Player.downOtherPlayerPressed);
+            output.writeObject(new Date().getTime());
             output.flush();
         } catch (IOException e) {
         }
@@ -98,6 +102,7 @@ public class Hosted implements Runnable {
 
     public void receiveData(){
         try {
+            date = new Date();
             Player.otherPlayer.x = (int) input.readObject();
             Player.otherPlayer.y = (int) input.readObject();
             Ball.x = (int) input.readObject();
@@ -106,8 +111,11 @@ public class Hosted implements Runnable {
             Player.playerPont = (int) input.readObject();
             Ball.speedX = (int) input.readObject();
             Ball.speedY = (int) input.readObject();
-            Player.upOtherPlayerPressed = (boolean) input.readObject();
-            Player.downOtherPlayerPressed = (boolean) input.readObject();
+            long msReceive = (long) input.readObject();
+            long msNow = date.getTime();
+
+            latency = msNow - msReceive;
+            // System.out.println(latency);
         } catch (ClassNotFoundException | IOException e) {
         }
     }

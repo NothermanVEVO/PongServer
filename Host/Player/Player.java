@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import Host.Input.Key;
+import Host.Server.Server;
 
 public class Player {
 
@@ -18,6 +19,10 @@ public class Player {
     public static boolean upOtherPlayerPressed;
     public static boolean downOtherPlayerPressed;
 
+    public static String pinga = "MARCO";
+
+    int frames;
+
     Key key;
     
     public Player(){
@@ -26,7 +31,8 @@ public class Player {
         otherPlayer = new Rectangle(-100, -100, 20, 75);
     }
 
-    public void update(Key key){
+    public void update(Key key, int frames){
+        this.frames = frames;
         if(key.upPressed){
             player.y -= 4;
         }
@@ -47,7 +53,7 @@ public class Player {
         if(player.y + (player.height + 37) >= 480){
             player.y -= 4;
         }
-        System.out.println(otherPlayer.y);
+        // System.out.println(otherPlayer.y);
     }
 
     public void draw(Graphics2D g2){
@@ -56,6 +62,8 @@ public class Player {
         g2.setFont(new Font("", Font.PLAIN, 40));
         g2.drawString("" + playerPont, 320 - 30 - 200, 240 - 200);
         g2.drawString("" + otherPlayerPont, 320 - 30 + 200, 240 - 200);
+        g2.setFont(new Font("", Font.PLAIN, 10));
+        g2.drawString("FPS: " + frames + " LATENCY: " + Server.latency, 150, 20);
         g2.fill(otherPlayer);
         g2.fill(player);
     }
