@@ -47,6 +47,7 @@ public class Player {
         if(player.y + (player.height + 37) >= 480){
             player.y -= 4;
         }
+        System.out.println(otherPlayer.y);
     }
 
     public void draw(Graphics2D g2){
