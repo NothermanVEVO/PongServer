@@ -123,7 +123,7 @@ public class Server implements Runnable {
             long msReceive = (long) input.readObject();
             long msNow = date.getTime();
 
-            latency = msNow - msReceive;
+            latency = msReceive - msNow;
             // System.out.println(latency);
         } catch (ClassNotFoundException | IOException e) {
         }
