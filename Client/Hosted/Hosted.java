@@ -115,6 +115,7 @@ public class Hosted implements Runnable {
             long msNow = date.getTime();
 
             latency = msReceive - msNow;
+            // System.out.println(new Date().getTime());
             // System.out.println(latency);
         } catch (ClassNotFoundException | IOException e) {
         }
