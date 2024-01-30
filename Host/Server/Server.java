@@ -103,6 +103,8 @@ public class Server implements Runnable {
             //Sending velocity of THIS ball
             output.writeObject(Ball.speedX);
             output.writeObject(Ball.speedY);
+            output.writeObject(Player.upOtherPlayerPressed);
+            output.writeObject(Player.downOtherPlayerPressed);
             output.flush();
         } catch (IOException e) {
         }
@@ -113,6 +115,8 @@ public class Server implements Runnable {
             Player.otherPlayer.x = (int) input.readObject();
             Player.otherPlayer.y = (int) input.readObject();
             Ball.intersectOtherPlayer = (boolean) input.readObject();
+            Player.upOtherPlayerPressed = (boolean) input.readObject();
+            Player.downOtherPlayerPressed = (boolean) input.readObject();
         } catch (ClassNotFoundException | IOException e) {
         }
     }

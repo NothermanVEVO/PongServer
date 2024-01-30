@@ -15,6 +15,9 @@ public class Player {
     public static int playerPont = 0;
     public static int otherPlayerPont = 0;
 
+    public static boolean upOtherPlayerPressed;
+    public static boolean downOtherPlayerPressed;
+
     Key key;
     
     public Player(){
@@ -24,11 +27,18 @@ public class Player {
     }
 
     public void update(Key key){
-        if(key.is_W_Pressed || key.is_Up_Pressed){
+        if(key.upPressed){
             player.y -= 4;
         }
-        if(key.is_S_Pressed || key.is_Down_Pressed){
+        if(key.downPressed){
             player.y += 4;
+        }
+
+        if(upOtherPlayerPressed){
+            otherPlayer.y -= 4;
+        }
+        if(downOtherPlayerPressed){
+            otherPlayer.y += 4;
         }
 
         if(player.y <= 0){

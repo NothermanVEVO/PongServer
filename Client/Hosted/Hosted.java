@@ -89,6 +89,8 @@ public class Hosted implements Runnable {
             output.writeObject(Player.player.x);
             output.writeObject(Player.player.y);
             output.writeObject(Ball.ballIntersectPlayer(Player.player));
+            output.writeObject(Player.upOtherPlayerPressed);
+            output.writeObject(Player.downOtherPlayerPressed);
             output.flush();
         } catch (IOException e) {
         }
@@ -104,6 +106,8 @@ public class Hosted implements Runnable {
             Player.playerPont = (int) input.readObject();
             Ball.speedX = (int) input.readObject();
             Ball.speedY = (int) input.readObject();
+            Player.upOtherPlayerPressed = (boolean) input.readObject();
+            Player.downOtherPlayerPressed = (boolean) input.readObject();
         } catch (ClassNotFoundException | IOException e) {
         }
     }
