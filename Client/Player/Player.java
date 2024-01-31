@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-import Client.Hosted.Hosted;
 import Client.Hosted.Latency;
 import Client.Input.Key;
 

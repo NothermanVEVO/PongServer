@@ -35,7 +35,9 @@ public class Latency implements Runnable {
             finishTime = System.currentTimeMillis();
         } else {
             finishTime = System.currentTimeMillis();
+            System.out.println("ERRO");
         }
+        System.out.println("Start time: " + startTime + " Finish time: " + finishTime);
         latency = finishTime - startTime;
     }
 
