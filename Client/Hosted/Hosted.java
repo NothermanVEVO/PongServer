@@ -92,11 +92,11 @@ public class Hosted implements Runnable {
         // }
         int timeOut = 999;
         long finishTime = 0;
-        long startTime = System.nanoTime();
+        long startTime = System.currentTimeMillis();
         if(isReachable(IP, port, timeOut)){
-            finishTime = System.nanoTime();
+            finishTime = System.currentTimeMillis();
         } else {
-            finishTime = System.nanoTime();
+            finishTime = System.currentTimeMillis();
         }
         latency = finishTime - startTime;
     }
