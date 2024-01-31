@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Date;
 
@@ -77,18 +78,38 @@ public class Hosted implements Runnable {
     }
 
     public void getLatency(){
-        int maxTime = 1000; //How much time to reach the Address in miliseconds
+        // int maxTime = 1000; //How much time to reach the Address in miliseconds
+        // long finishTime = 0;
+        // long startTime = System.nanoTime();
+        // try {
+        //     if(inetAddress.isReachable(maxTime)){
+        //         finishTime = System.nanoTime();
+        //     } else {
+        //         finishTime = System.nanoTime();
+        //     }
+        //     latency = finishTime - startTime;
+        // } catch (IOException e) {
+        // }
+        int timeOut = 999;
         long finishTime = 0;
         long startTime = System.nanoTime();
+        if(isReachable(IP, port, timeOut)){
+            finishTime = System.nanoTime();
+        } else {
+            finishTime = System.nanoTime();
+        }
+        latency = finishTime - startTime;
+    }
+
+    public boolean isReachable(String address, int port, int timeOut){
+        Socket pseudoSocket = new Socket();
         try {
-            if(inetAddress.isReachable(maxTime)){
-                finishTime = System.nanoTime();
-            } else {
-                finishTime = System.nanoTime();
-            }
-            latency = finishTime - startTime;
+            pseudoSocket.connect(new InetSocketAddress(address, port), timeOut);
+            pseudoSocket.close();
+            return true;
         } catch (IOException e) {
         }
+        return false;
     }
 
     public void processConnection(){
