@@ -81,25 +81,24 @@ public class Server implements Runnable {
         System.out.println("Got IP: " + inetAddress.getHostAddress());
     }
 
-    public int getLatency(){
+    public void getLatency(){
         int maxTime = 1000; //How much time to reach the Address in miliseconds
         long finishTime = 0;
         long startTime = System.nanoTime();
-        int latency = -2;
         try {
             if(inetAddress.isReachable(maxTime)){
                 finishTime = System.nanoTime();
-                latency = (int) (finishTime - startTime);
+                latency = finishTime - startTime;
             }
         } catch (IOException e) {
         }
-        return latency;
     }
 
     public void processConnection(){
         System.out.println("Game started!");
         Window window = new Window();
         while (connection.isConnected() && window.isVisible()) {
+            getLatency();
             sendData();
             receiveData();
         }
@@ -144,10 +143,6 @@ public class Server implements Runnable {
             Player.otherPlayer.x = (int) input.readObject();
             Player.otherPlayer.y = (int) input.readObject();
             Ball.intersectOtherPlayer = (boolean) input.readObject();
-
-            latency = getLatency();
-            // System.out.println(new Date().getTime());
-            // System.out.println(latency);
         } catch (ClassNotFoundException | IOException e) {
         }
     }
