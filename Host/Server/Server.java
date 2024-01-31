@@ -82,15 +82,16 @@ public class Server implements Runnable {
     }
 
     public void getLatency(){
-        int maxTime = 1000; //How much time to reach the Address in miliseconds
+        int maxTime = 999; //How much time to reach the Address in miliseconds
         long finishTime = 0;
         long startTime = System.nanoTime();
-        inetAddress = connection.getInetAddress();
         try {
             if(inetAddress.isReachable(maxTime)){
                 finishTime = System.nanoTime();
-                latency = finishTime - startTime;
+            } else {
+                finishTime = System.nanoTime();
             }
+            latency = finishTime - startTime;
         } catch (IOException e) {
         }
     }
