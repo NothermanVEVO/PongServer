@@ -33,12 +33,11 @@ public class Latency implements Runnable {
         long startTime = System.currentTimeMillis();
         if(isReachable(Hosted.IP, Hosted.port, timeOut)){
             finishTime = System.currentTimeMillis();
-        } else {
-            finishTime = System.currentTimeMillis();
-            System.out.println("ERRO");
+            latency = finishTime - startTime;
+        } else{
+            latency = -3;
         }
-        System.out.println("Start time: " + startTime + " Finish time: " + finishTime);
-        latency = finishTime - startTime;
+        // System.out.println("Start time: " + startTime + " Finish time: " + finishTime);
     }
 
     public boolean isReachable(String address, int port, int timeOut){
