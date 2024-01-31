@@ -20,19 +20,17 @@ public class Hosted implements Runnable {
 
     InetAddress inetAddress;
 
-    String IP;
-    int port;
+    public static String IP;
+    public static int port;
 
     Player player;
     Ball ball;
 
     Date date = new Date();
 
-    public static long latency;
-
     public Hosted(String IP, int port){
-        this.IP = IP;
-        this.port = port;
+        Hosted.IP = IP;
+        Hosted.port = port;
     }
 
     @Override
@@ -77,46 +75,10 @@ public class Hosted implements Runnable {
         System.out.println("Got IP: " + inetAddress.getHostAddress());
     }
 
-    public void getLatency(){
-        // int maxTime = 1000; //How much time to reach the Address in miliseconds
-        // long finishTime = 0;
-        // long startTime = System.nanoTime();
-        // try {
-        //     if(inetAddress.isReachable(maxTime)){
-        //         finishTime = System.nanoTime();
-        //     } else {
-        //         finishTime = System.nanoTime();
-        //     }
-        //     latency = finishTime - startTime;
-        // } catch (IOException e) {
-        // }
-        int timeOut = 999;
-        long finishTime = 0;
-        long startTime = System.currentTimeMillis();
-        if(isReachable(IP, port, timeOut)){
-            finishTime = System.currentTimeMillis();
-        } else {
-            finishTime = System.currentTimeMillis();
-        }
-        latency = finishTime - startTime;
-    }
-
-    public boolean isReachable(String address, int port, int timeOut){
-        Socket pseudoSocket = new Socket();
-        try {
-            pseudoSocket.connect(new InetSocketAddress(address, port), timeOut);
-            pseudoSocket.close();
-            return true;
-        } catch (IOException e) {
-        }
-        return false;
-    }
-
     public void processConnection(){
         System.out.println("Game started!");
         Window window = new Window();
         while (connection.isConnected() && window.isVisible()) {
-            getLatency();
             sendData();
             receiveData();
         }

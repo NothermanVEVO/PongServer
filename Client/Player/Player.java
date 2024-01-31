@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import Client.Hosted.Hosted;
+import Client.Hosted.Latency;
 import Client.Input.Key;
 
 public class Player {
@@ -63,7 +64,7 @@ public class Player {
         g2.drawString("" + playerPont, 320 - 30 + 200, 240 - 200);
         g2.drawString("" + otherPlayerPont, 320 - 30 - 200, 240 - 200);
         g2.setFont(new Font("", Font.PLAIN, 10));
-        g2.drawString("FPS: " + frames + " LATENCY: " + Hosted.latency, 155, 20);
+        g2.drawString("FPS: " + frames + " LATENCY: " + Latency.latency, 155, 20);
         g2.fill(player);
         g2.fill(otherPlayer);
     }
