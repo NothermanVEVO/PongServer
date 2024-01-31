@@ -47,7 +47,6 @@ public class Latency implements Runnable {
             pseudoSocket.close();
             return true;
         } catch (IOException e) {
-            System.err.println("HEEEEEEEEEEEEEEELP");
         }
         return false;
     }

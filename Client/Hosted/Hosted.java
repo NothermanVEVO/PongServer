@@ -77,6 +77,9 @@ public class Hosted implements Runnable {
     public void processConnection(){
         System.out.println("Game started!");
         Window window = new Window();
+        Latency latency = new Latency();
+        Thread latencyThread = new Thread(latency);
+        latencyThread.start();
         while (connection.isConnected() && window.isVisible()) {
             sendData();
             receiveData();
