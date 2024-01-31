@@ -80,6 +80,7 @@ public class Hosted implements Runnable {
         int maxTime = 1000; //How much time to reach the Address in miliseconds
         long finishTime = 0;
         long startTime = System.nanoTime();
+        inetAddress = connection.getInetAddress();
         try {
             if(inetAddress.isReachable(maxTime)){
                 finishTime = System.nanoTime();
