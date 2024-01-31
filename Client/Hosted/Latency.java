@@ -28,12 +28,12 @@ public class Latency implements Runnable {
         //     latency = finishTime - startTime;
         // } catch (IOException e) {
         // }
-        int timeOut = 999;
+        int timeOut = 1000;
         long finishTime = 0;
         long startTime = System.currentTimeMillis();
         if(isReachable(Hosted.IP, Hosted.port, timeOut)){
             finishTime = System.currentTimeMillis();
-            latency = finishTime - startTime;
+            latency = (int) (finishTime - startTime);
         } else{
             latency = -3;
         }

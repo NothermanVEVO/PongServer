@@ -21,9 +21,13 @@ public class Player {
 
     public static String pinga = "MARCO";
 
+    int fakeLatency = (int) Latency.latency;
+
     int frames;
 
     Key key;
+
+    int count = 0;
     
     public Player(){
         //? CHANGED HERE
@@ -33,6 +37,11 @@ public class Player {
 
     public void update(Key key, int frames){
         this.frames = frames;
+        count++;
+        if(count >= 60){
+            fakeLatency = (int) Latency.latency;
+            count = 0;
+        }
         if(key.upPressed){
             player.y -= 4;
         }
@@ -63,7 +72,7 @@ public class Player {
         g2.drawString("" + playerPont, 320 - 30 + 200, 240 - 200);
         g2.drawString("" + otherPlayerPont, 320 - 30 - 200, 240 - 200);
         g2.setFont(new Font("", Font.PLAIN, 10));
-        g2.drawString("FPS: " + frames + " LATENCY: " + Latency.latency, 155, 20);
+        g2.drawString("FPS: " + frames + " LATENCY: " + fakeLatency, 155, 20);
         g2.fill(player);
         g2.fill(otherPlayer);
     }
