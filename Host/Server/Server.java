@@ -3,6 +3,7 @@ package Host.Server;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
@@ -17,6 +18,8 @@ public class Server implements Runnable {
     Socket connection;
     ObjectOutputStream output;
     ObjectInputStream input;
+
+    InetAddress inetAddress;
 
     int port;
 
@@ -46,6 +49,7 @@ public class Server implements Runnable {
         System.out.println("Server created!");
         waitForConnection();
         getIOstreams();
+        getIP();
         processConnection();
     }
 
@@ -69,6 +73,12 @@ public class Server implements Runnable {
             System.out.println("Failed to get I/O streams!");
         }
         System.out.println("Got I/O streams!");
+    }
+
+    public void getIP(){
+        System.out.println("Getting IP...");
+        inetAddress = connection.getInetAddress();
+        System.out.println("Got IP: " + inetAddress.getHostAddress());
     }
 
     public void processConnection(){
